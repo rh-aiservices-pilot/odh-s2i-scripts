@@ -3,9 +3,9 @@
 These scripts are meant to be run from an Open Data Hub JupyterHub environment and provide some basic scripted functions for creating a new project, repo, and application.
 
 ## Installing
-Install scripts and pre-requesites.
+Install scripts and pre-requisites.
 ```shell
-curl -o- https://raw.githubusercontent.com/cfchase/odh-s2i-scripts/master/install.sh | bash
+curl -o- https://raw.githubusercontent.com/rh-aiservices-pilot/odh-s2i-scripts/master/install.sh | bash
 ```
 
 ## Create a new project

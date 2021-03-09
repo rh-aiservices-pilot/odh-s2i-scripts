@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 new_project () {
-  cookiecutter https://github.com/cfchase/odh-s2i-project-cookiecutter --checkout simple
+  cookiecutter https://github.com/rh-aiservices-pilot/odh-s2i-project-cookiecutter --checkout simple
 }
 
 new_repo () {
@@ -48,16 +48,18 @@ new_app () {
   else
     cd $1 || exit
   fi
-  
+
   local dirname=${PWD##*/}
   local repo=$(git remote -v | head -n 1 | awk -F ' ' '{print $2}'| sed 's|git@github.com:|https://github.com/|g')
   oc project $2 2> /dev/null || oc new-project $2
   oc new-app "python:3.8-ubi8~$repo" \
-    -l "odh.io/generator=odhcli" \
-    -l "app.kubernetes.io/component=$dirname" \
-    -l "app.kubernetes.io/instance=$dirname" \
-    -l "app.kubernetes.io/part-of=$dirname"
+    -l "odh.io/generator=odhcli,app.kubernetes.io/component=$dirname,app.kubernetes.io/instance=$dirname,app.kubernetes.io/part-of=$dirname"
+  oc expose "svc/$dirname"
   popd
+}
+
+list_apps() {
+  oc get deployment,deploymentconfig --all-namespaces -l odh.io/generator=odhcli
 }
 
 
@@ -71,7 +73,11 @@ case $1 in
     ;;
 
   new-app)
-    new_app $2 $3
+    new_app $2 $3aa
+    ;;
+
+  list-apps)
+    list_apps
     ;;
 
   *)

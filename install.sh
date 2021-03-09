@@ -6,7 +6,7 @@ echo 'Installing odh client'
 ODH_DIR="$HOME/.local/bin"
 
 mkdir -p ${ODH_DIR} 
-wget -O "${ODH_DIR}/odh" https://raw.githubusercontent.com/cfchase/odh-s2i-scripts/master/odh.sh &> /dev/null
+wget -O "${ODH_DIR}/odh" https://raw.githubusercontent.com/rh-aiservices-pilot/odh-s2i-scripts/master/odh.sh &> /dev/null
 chmod a+x "${ODH_DIR}/odh" &> /dev/null
 
 echo 'Installing cookiecutter package'
